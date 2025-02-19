@@ -48,7 +48,7 @@ const AddWebsiteScreen = ({ navigation }) => {
       console.log(response.config.headers);
 
       Alert.alert('Success', 'Website added successfully');
-      navigation.goBack(); // Go back to Home after adding the website
+      navigation.navigate('home'); // Navigate directly to the 'Home' screen
     } catch (error) {
       console.error('Error adding website:', error);
       Alert.alert('Error', 'Failed to add website');

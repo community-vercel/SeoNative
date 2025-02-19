@@ -41,7 +41,6 @@ const HomePage = ({ navigation }) => {
 
     fetchWebsites();
   }, []);
-  console.log("Wesutes",websites)
 
   const renderWebsiteItem = ({ item }) => (
     <View style={styles.websiteItem}>

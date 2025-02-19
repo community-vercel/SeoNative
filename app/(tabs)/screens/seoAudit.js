@@ -117,7 +117,7 @@ const SeoAuditScreen = ({ route, navigation }) => {
     const fetchAuditData = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
-        const response = await axios.get(`${apiUrl}         /audit-websites/${websiteId}/audit/`, {
+        const response = await axios.get(`${apiUrl}/audit-websites/${websiteId}/audit/`, {
           headers: { Authorization: `Token ${token}` }
         });
         setAuditData(response.data);
@@ -285,7 +285,7 @@ const SeoAuditScreen = ({ route, navigation }) => {
             <View style={styles.card}>
               <Text style={styles.sectionHeader}>On-Page SEO Analysis</Text>
               <Text style={styles.subHeader}>Meta Tags</Text>
-              <Text style={styles.text}>Title: <Text style={styles.value}>{auditData.metaTags.title}</Text></Text>
+              <Text style={styles.text}>Title: <Text style={styles.value}>{auditData?.metaTags.title}</Text></Text>
               <Text style={styles.text}>Description: <Text style={styles.value}>{auditData.metaTags.description}</Text></Text>
               <Text style={styles.text}>Other Meta Tags: <Text style={styles.value}>{auditData.metaTags.other}</Text></Text>
             </View>
