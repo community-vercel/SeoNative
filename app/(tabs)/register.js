@@ -23,7 +23,7 @@ export default function RegisterScreen({ navigation }) {
       });
 
 
-      a
+      
       await AsyncStorage.setItem('token', response.data.token);
       navigation.navigate('home');
     } catch (error) {
