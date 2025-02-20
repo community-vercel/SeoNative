@@ -21,6 +21,7 @@ export default function RegisterScreen({ navigation }) {
         email,
         password,
       });
+      
       await AsyncStorage.setItem('token', response.data.token);
       navigation.navigate('home');
     } catch (error) {
