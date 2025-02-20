@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -8,13 +9,13 @@ import {
   ActivityIndicator,
   ScrollView,
   useWindowDimensions,
+  Alert,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import {API_URL,SERVER_URL} from "@env"
+import { API_URL, SERVER_URL } from '@env';
 import { Platform } from 'react-native';
-
 
 const HomePage = ({ navigation }) => {
   const [websites, setWebsites] = useState([]);
@@ -41,6 +42,27 @@ const HomePage = ({ navigation }) => {
 
     fetchWebsites();
   }, []);
+
+  const handleDelete = async (websiteId) => {
+    console.log("hooooo",websiteId)
+   
+            try {
+              const token = await AsyncStorage.getItem('token');
+              // Adjust the URL to match your API's delete endpoint
+              await axios.delete(`${apiUrl}/delete-websites/${websiteId}/`, {
+                headers: { Authorization: `Token ${token}` },
+              });
+              // Remove the deleted website from the state
+              setWebsites((prevWebsites) =>
+                prevWebsites.filter((website) => website.id !== websiteId)
+              );
+            } catch (error) {
+              console.error(error);
+              Alert.alert('Error', 'Unable to delete the website.');
+            }
+          
+      
+  };
 
   const renderWebsiteItem = ({ item }) => (
     <View style={styles.websiteItem}>
@@ -92,8 +114,20 @@ const HomePage = ({ navigation }) => {
                 : styles.rejected,
             ]}
           >
-            {item.status === 'pending' ? 'Pending' : item.status === 'approved' ? 'Approved' : 'Rejected'}
+            {item.status === 'pending'
+              ? 'Pending'
+              : item.status === 'approved'
+              ? 'Approved'
+              : 'Rejected'}
           </Text>
+        </TouchableOpacity>
+        {/* Delete Button */}
+        <TouchableOpacity
+          style={[styles.actionButton, { backgroundColor: '#dc3545' }]}
+          onPress={() => handleDelete(item.id)}
+        >
+          <MaterialIcons name="delete" size={16} color="#fff" />
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>

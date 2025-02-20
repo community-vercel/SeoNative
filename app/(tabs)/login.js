@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, Alert } from 'react-native';
 import axios from 'axios';
 import { Platform } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {API_URL,SERVER_URL} from "@env"
@@ -13,22 +14,33 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 console.log("Env",API_URL)
-  const handleLogin = async () => {
-       try {
-      const response = await axios.post(`${apiUrl}/login/`, {
-        username,
-        password,
-      }, {         
-        withCredentials: true
-      });
-      console.log("response", response)
-      await
-       AsyncStorage.setItem('token', response.data.token);
-      navigation.navigate('home');
-    } catch (error) {
-      Alert.alert('Login Failed', 'Invalid username or password');
-    }
-  };
+
+const handleLogin = async () => {
+  try {
+    const response = await axios.post(`${apiUrl}/login/`, {
+      username,
+      password,
+    }, {         
+      withCredentials: true
+    });
+console.log("data",response.data);
+    await AsyncStorage.setItem('token', response.data.token);
+    navigation.navigate('home');
+    
+    Toast.show({
+      type: 'success',
+      text1: 'Login Successful',
+      text2: `Welcome back, ${username}! 🎉`,
+    });
+
+  } catch (error) {
+    Toast.show({
+      type: 'error',
+      text1: 'Login Failed',
+      text2: 'Invalid username or password. Please try again.',
+    });
+  }
+};
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -47,10 +59,17 @@ console.log("Env",API_URL)
         style={styles.input}
       />
       <Button title="Login" onPress={handleLogin} color="#1e90ff" />
+      
       <Text style={styles.footerText}>
         Don't have an account?{' '}
-        <Text style={styles.link} onPress={() => navigation.navigate('register')}>
+        <Text style={styles.link} onPress={() => navigation.navigate( 'register' )}>
           Register
+        </Text>
+      </Text>
+      <Text style={styles.footerText}>
+        Forgot Password?{' '}
+        <Text style={styles.link} onPress={() => navigation.navigate('forgot')}>
+          Reset
         </Text>
       </Text>
     </ScrollView>

@@ -1,22 +1,37 @@
-import LoginScreen from './screens/login';
-import WebsiteManagementScreen from './screens/website';
-import EditWebsiteScreen from './screens/editWebsite';
-import RegisterScreen from './screens/register';
-import WebCrawlingScreen from './screens/webCrawling';
-import SeoAuditScreen from './screens/seoAudit';
-import CrawlHistoryScreen from './screens/crawlHistory';
+import LoginScreen from './login';
+import WebsiteManagementScreen from './website';
+import EditWebsiteScreen from './editWebsite';
+import RegisterScreen from './register';
+import WebCrawlingScreen from './webCrawling';
+import SeoAuditScreen from './seoAudit';
+import CrawlHistoryScreen from './crawlHistory';
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import AddWebsiteScreen from './screens/wesiteadd';
-import HomePage from './screens/addwe';
-import LighthouseReportsScreen from './screens/seoDash';
+import AddWebsiteScreen from './wesiteadd';
+import HomePage from './addwe';
+import LighthouseReportsScreen from './seoDash';
+import Toast from 'react-native-toast-message';
+import ForgotPasswordScreen from './forgot';
+import ResetPasswordScreen from './reset';
+import * as Linking from 'expo-linking';
+
 
 const Stack = createStackNavigator();
-
+const linking = {
+  prefixes: ['http://localhost:8081', 'myapp://'],
+  config: {
+    screens: {
+      ForgotPasswordScreen: 'forgot', // Ensure the screen name matches
+      ResetPassword: 'reset/:uid/:token',
+      // other routes
+    },
+  },
+};
 export default function App() {
+
   return (
 
-      <Stack.Navigator initialRouteName="login">
+      <Stack.Navigator initialRouteName="login" linking={linking}>
         <Stack.Screen name="home" component={HomePage} />
         <Stack.Screen name="AddWebsite" component={AddWebsiteScreen} />
         <Stack.Screen name="Edit" component={EditWebsiteScreen} />
@@ -27,6 +42,9 @@ export default function App() {
         <Stack.Screen name="SeoAudit" component={SeoAuditScreen} />
         <Stack.Screen name="CrawlHistory" component={CrawlHistoryScreen} />
         <Stack.Screen name="SeoDash" component={LighthouseReportsScreen} />
+        <Stack.Screen name="forgot" component={ForgotPasswordScreen} />
+        <Stack.Screen name="reset" component={ResetPasswordScreen} />
+
 
       </Stack.Navigator>
   );

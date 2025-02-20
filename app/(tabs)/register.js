@@ -4,6 +4,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {API_URL,SERVER_URL} from "@env"
 import { Platform } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 
 export default function RegisterScreen({ navigation }) { 
@@ -15,7 +16,7 @@ export default function RegisterScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post(`${apiUrl}/register/`, {
+      const response = await axios.post(`http://127.0.0.1:8000/register/`, {
         username,
         email,
         password,
@@ -23,7 +24,11 @@ export default function RegisterScreen({ navigation }) {
       await AsyncStorage.setItem('token', response.data.token);
       navigation.navigate('home');
     } catch (error) {
-      Alert.alert('Registration Failed', 'Please try again');
+      Toast.show({
+            type: 'error',
+            text1: 'Registration Failed',
+            text2: error,
+          });
     }
   };
 

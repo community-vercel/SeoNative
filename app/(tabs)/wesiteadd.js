@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 import {API_URL,SERVER_URL} from "@env"
 import { Platform } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 
 const AddWebsiteScreen = ({ navigation }) => {
@@ -45,12 +46,17 @@ const AddWebsiteScreen = ({ navigation }) => {
           },
         }
       );
-      console.log(response.config.headers);
-
-      Alert.alert('Success', 'Website added successfully');
       navigation.navigate('home'); // Navigate directly to the 'Home' screen
+
+      console.log(response.data.detail);
+
     } catch (error) {
-      console.error('Error adding website:', error);
+        Toast.show({
+                  type: 'error',
+                  text1: 'Registration Failed',
+                  text2: 'duplicate Site',error,
+                });
+          
       Alert.alert('Error', 'Failed to add website');
     }
   };
