@@ -16,7 +16,7 @@ export default function RegisterScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/register/`, {
+      const response = await axios.post(`${API_URL}/register/`, {
         username,
         email,
         password,

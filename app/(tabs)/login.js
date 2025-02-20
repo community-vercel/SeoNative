@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {API_URL,SERVER_URL} from "@env"
 const apiUrl = Platform.OS === 'android' ? API_URL : SERVER_URL;
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({navigation}) {
   const apiUrl = Platform.OS === 'android' ? API_URL : SERVER_URL;
 
   const [username, setUsername] = useState('');
@@ -62,7 +62,7 @@ console.log("data",response.data);
       
       <Text style={styles.footerText}>
         Don't have an account?{' '}
-        <Text style={styles.link} onPress={() => navigation.navigate( 'register' )}>
+        <Text style={styles.link} onPress={() => navigation.navigate('register' )}>
           Register
         </Text>
       </Text>
