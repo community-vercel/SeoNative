@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 
 import { useColorScheme } from '../hooks/useColorScheme.web';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -33,6 +34,12 @@ export default function RootLayout() {
       <Stack.Screen name="+not-found" />
     </Stack>
     <StatusBar style="auto" />
+    <Toast
+  position="top"
+  visibilityTime={3000}
+  autoHide={true}
+  topOffset={50}
+/>
   </ThemeProvider>
   );
 }
