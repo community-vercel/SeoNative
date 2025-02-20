@@ -20,13 +20,14 @@ const Stack = createStackNavigator();
 const linking = {
   prefixes: ['http://localhost:8081', 'myapp://'],
   config: {
+    
     screens: {
       ForgotPasswordScreen: 'forgot', // Ensure the screen name matches
       ResetPassword: 'reset/:uid/:token',
       // other routes
     },
 
-    
+
   },
 };
 export default function App() {
