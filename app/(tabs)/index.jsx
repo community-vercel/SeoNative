@@ -25,6 +25,8 @@ const linking = {
       ResetPassword: 'reset/:uid/:token',
       // other routes
     },
+
+    
   },
 };
 export default function App() {
